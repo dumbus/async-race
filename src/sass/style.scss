@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #000000;
+}
+
+.container {
+  width: calc(100vw - 40px);
+  min-height: calc(100vh - 30px);
+  padding: 10px 10px 20px 10px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  height: 25px;
+  margin-bottom: 10px;
+  * {
+    height: 100%;
+  }
+  .input {
+    border: none;
+    border-radius: 3px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.button {
+  width: 100px;
+  height: 25px;
+  padding: 0 2px;
+  background-color: rgba(119, 247, 119, 0.8);
+  border: none;
+  border-bottom: 3px solid rgba(119, 247, 119, 1.0);
+  border-radius: 3px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  &:not(:disabled):hover {
+    background-color: rgba(48, 250, 48, 0.8);
+    border-bottom: 3px solid rgba(48, 250, 48, 1.0);
+  }
+  &-blue {
+    background-color: rgba(190, 229, 251, 0.8);
+    border-bottom: 3px solid rgba(190, 229, 251, 1.0);
+    &:not(:disabled):hover {
+      background-color: rgba(34, 154, 252, 0.8);
+      border-bottom: 3px solid rgba(34, 154, 252, 1.0);
+    }
+  }
+  &:disabled {
+    background-color: rgba(192, 189, 189, 0.8);
+    border-bottom: 3px solid rgba(105, 105, 105, 1.0);
+  }
+}
+
+.settings {
+  margin: 20px 0 0 0;
+  &-controls-generate {
+    width: 120px;
+  }
+}
+
+.garage {
+  margin: 20px 0 0 0;
+  color: #ffffff;
+  &-header {
+    font-size: 36px;
+  }
+  &-subheader {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .car {
+    margin-top: 20px;
+    &-header {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      &-name {
+        color: #FFA500;
+        font-size: 20px;
+      }
+      &-button {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        font-size: 20px;
+        background-color: transparent;
+        &:disabled {
+          border: 1px solid rgb(105, 105, 105);
+          color: rgb(105, 105, 105);
+        }
+      }
+      &-start {
+        border: 1px solid rgb(48, 250, 48);
+        color:rgb(48, 250, 48);
+        transition: all 0.5s;
+        &:not(:disabled):hover {
+          box-shadow: 0 0 5px rgb(48, 250, 48);
+        }
+      }
+      &-stop {
+        border: 1px solid rgb(252, 16, 16);
+        color:rgb(252, 16, 16);
+        transition: all 0.5s;
+        &:not(:disabled):hover {
+          box-shadow: 0 0 5px rgb(252, 16, 16);
+        }
+      }
+    }
+    &-road {
+      position: relative;
+      &-icon {
+        height: 60px;
+        border-bottom: 4px dashed #ffffff;
+        svg {
+          height: 80px;
+        }
+      }
+      &-flag {
+        font-size: 40px;
+        position: absolute;
+        top: 0;
+        right: 100px;
+      }
+    }
+  }
+  .additional-height {
+    height: 50px;
+  }
+}
