@@ -105,17 +105,17 @@ body {
       &-start {
         border: 1px solid rgb(48, 250, 48);
         color:rgb(48, 250, 48);
-        transition: all 0.5s;
+        transition: all 0.2s;
         &:not(:disabled):hover {
-          box-shadow: 0 0 5px rgb(48, 250, 48);
+          box-shadow: 0 0 10px rgb(48, 250, 48);
         }
       }
       &-stop {
         border: 1px solid rgb(252, 16, 16);
         color:rgb(252, 16, 16);
-        transition: all 0.5s;
+        transition: all 0.2s;
         &:not(:disabled):hover {
-          box-shadow: 0 0 5px rgb(252, 16, 16);
+          box-shadow: 0 0 10px rgb(252, 16, 16);
         }
       }
     }
