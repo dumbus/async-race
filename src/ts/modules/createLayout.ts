@@ -6,6 +6,8 @@ import { updateStoredCarsCount, getStore } from './store';
 import {
   checkDisablingPrevGaragePage,
   checkDisablingNextGaragePage,
+  checkDisablingPrevWinnersPage,
+  checkDisablingNextWinnersPage,
   setDefaultState,
   setDefaultAnimation
 } from './utils';
@@ -108,7 +110,7 @@ export const createWinnersPage = async (page: number) => {
 
   winners.innerHTML = `
     <h2 class="winners-header">Winners (${winnersData.count})</h2>
-    <h3 class="winners-subheader">Page #1</h3>
+    <h3 class="winners-subheader">Page #${getStore().winnersPage}</h3>
 
     <table class="winners-table">
       <tr class="winners-table-row winners-table-row-headers">
@@ -121,8 +123,8 @@ export const createWinnersPage = async (page: number) => {
     </table>
 
     <nav class="winners-nav">
-      <button class="button winners-nav-prev" disabled>Prev</button>
-      <button class="button winners-nav-next" disabled>Next</button>
+    <button class="button winners-nav-prev" ${checkDisablingPrevWinnersPage()}>Prev</button>
+    <button class="button winners-nav-next" ${checkDisablingNextWinnersPage()}>Next</button>
     </nav>
   `;
 

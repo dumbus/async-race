@@ -6,6 +6,8 @@ import {
   createRandomCarsByButton,
   paginateGaragePrev,
   paginateGarageNext,
+  paginateWinnersPrev,
+  paginateWinnersNext,
   startDriving,
   stopDriving
 } from './updatePages';
@@ -20,6 +22,11 @@ export const addMenuListeners = () => {
   const garageBlock = document.querySelector('.garage');
   const winnersBlock = document.querySelector('.winners');
 
+  const garageNavPrev = document.querySelector('.garage-nav-prev');
+  const garageNavNext = document.querySelector('.garage-nav-next');
+  const winnersNavPrev = document.querySelector('.winners-nav-prev');
+  const winnersNavNext = document.querySelector('.winners-nav-next');
+
   garageBtn.addEventListener('click', () => {
     garageBlock.classList.remove('hidden');
     winnersBlock.classList.add('hidden');
@@ -29,6 +36,12 @@ export const addMenuListeners = () => {
     winnersBlock.classList.remove('hidden');
     garageBlock.classList.add('hidden');
   });
+
+  garageNavPrev.addEventListener('click', paginateGaragePrev);
+  garageNavNext.addEventListener('click', paginateGarageNext);
+
+  winnersNavPrev.addEventListener('click', paginateWinnersPrev);
+  winnersNavNext.addEventListener('click', paginateWinnersNext);
 };
 
 export const addGarageUpdateListeners = () => {
@@ -41,8 +54,6 @@ export const addGarageUpdateListeners = () => {
   const deleteCarButtons = document.querySelectorAll('.car-header-remove');
   const selectCarButtons = document.querySelectorAll('.car-header-select');
   const generateCarsButton = <HTMLButtonElement>document.querySelector('.settings-controls-generate');
-  const garageNavPrev = document.querySelector('.garage-nav-prev');
-  const garageNavNext = document.querySelector('.garage-nav-next');
   const carStartButtons = document.querySelectorAll('.car-header-start');
   const carStopButtons = document.querySelectorAll('.car-header-stop');
 
@@ -69,9 +80,6 @@ export const addGarageUpdateListeners = () => {
   });
 
   generateCarsButton.addEventListener('click', createRandomCarsByButton);
-
-  garageNavPrev.addEventListener('click', paginateGaragePrev);
-  garageNavNext.addEventListener('click', paginateGarageNext);
 
   carStartButtons.forEach((button) => {
     button.addEventListener('click', () => {

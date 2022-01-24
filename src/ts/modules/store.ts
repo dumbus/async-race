@@ -1,7 +1,8 @@
 let store = {
   carsPage: 1,
   winnersPage: 1,
-  carsCount: 4
+  carsCount: 4,
+  winnersCount: 1
 };
 
 if (sessionStorage.getItem('dumbus-async-race-store') !== null) {
@@ -26,5 +27,10 @@ export function updateStoredWinnersPage(page: number) {
 
 export function updateStoredCarsCount(count: number) {
   store.carsCount = count;
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+}
+
+export function updateStoredWinnersCount(count: number) {
+  store.winnersCount = count;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }

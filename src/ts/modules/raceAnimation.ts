@@ -1,9 +1,8 @@
 import { startDriving, stopDriving } from './updatePages';
-import { renderResult, clearResult } from './utils';
+import { clearResult, renderResult } from './utils';
 import { createWinner, updateWinner, getWinner } from './api';
-import { addMenuListeners } from './listeners';
-import { createWinnersPage } from './createLayout';
-import { getStore } from './store';
+import { updateWinnersPage } from './updatePages';
+import { getStore, updateStoredWinnersCount } from './store';
 
 type RaceFunction = (
   promises: Promise<{ result: { success: true }; id: number; time: number; car: Element }>[],
@@ -42,8 +41,6 @@ export const startRace = async () => {
   const promisesArr: Promise<{ result: { success: true }; id: number; time: number; car: Element }>[] = [];
   const idsArr: number[] = [];
   const winners = JSON.parse(sessionStorage.getItem('dumbus-async-race-winners'));
-  const containerBlock = document.querySelector('.container');
-  const winnersBlock = document.querySelector('.winners');
 
   carItems.forEach((carItem) => {
     const START_INDEX_OF_CAR_ID = 4;
@@ -64,6 +61,7 @@ export const startRace = async () => {
   resetButton.disabled = false;
 
   if (winners.indexOf(winnerData.id) === -1) {
+    let winnersCount = getStore().winnersCount;
     const newWinnerData = {
       id: winnerData.id,
       wins: 1,
@@ -71,10 +69,9 @@ export const startRace = async () => {
     };
 
     await createWinner(newWinnerData);
-    winnersBlock.remove();
-    const winnersPage = await createWinnersPage(getStore().winnersPage);
-    containerBlock.append(winnersPage);
-    addMenuListeners();
+    winnersCount += 1;
+    updateStoredWinnersCount(winnersCount);
+    await updateWinnersPage();
   } else {
     const oldWinnerData = await getWinner(winnerData.id);
 
@@ -94,10 +91,7 @@ export const startRace = async () => {
       await updateWinner(winnerData.id, updatedWinnerData);
     }
 
-    winnersBlock.remove();
-    const winnersPage = await createWinnersPage(getStore().winnersPage);
-    containerBlock.append(winnersPage);
-    addMenuListeners();
+    await updateWinnersPage();
   }
 };
 
@@ -119,5 +113,6 @@ export const resetRace = async () => {
 
   await Promise.all(promisesArr);
   raceButton.disabled = false;
+
   clearResult();
 };

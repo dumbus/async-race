@@ -1,7 +1,7 @@
 import { createHeader, createGaragePage, createWinnersPage } from './createLayout';
 import { getRandomName, getRandomColor, getDistanceBetweenElements, animateCar } from './utils';
 import { addMenuListeners, addGarageUpdateListeners, addRaceListeners } from './listeners';
-import { getStore, updateStoredCarsPage } from './store';
+import { getStore, updateStoredCarsPage, updateStoredWinnersPage } from './store';
 import {
   createCar,
   deleteCar,
@@ -27,6 +27,17 @@ const updatePage = async () => {
   addMenuListeners();
   addGarageUpdateListeners();
   addRaceListeners();
+};
+
+export const updateWinnersPage = async () => {
+  const container = document.querySelector('.container');
+  const winners = document.querySelector('.winners');
+  winners.remove();
+
+  const winnersBlock = await createWinnersPage(getStore().winnersPage);
+  container.append(winnersBlock);
+
+  addMenuListeners();
 };
 
 export const createCarByButton = async () => {
@@ -164,4 +175,20 @@ export const stopDriving = async (id: number, currentCarIndex: number) => {
   sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
 
   return { car: car };
+};
+
+export const paginateWinnersNext = async () => {
+  updateStoredWinnersPage(getStore().winnersPage + 1);
+  await updateWinnersPage();
+
+  const winners = document.querySelector('.winners');
+  winners.classList.remove('hidden');
+};
+
+export const paginateWinnersPrev = async () => {
+  updateStoredWinnersPage(getStore().winnersPage - 1);
+  await updateWinnersPage();
+
+  const winners = <HTMLElement>document.querySelector('.winners');
+  winners.classList.remove('hidden');
 };

@@ -42,6 +42,25 @@ export const checkDisablingPrevGaragePage = () => {
   return 'disabled';
 };
 
+export const checkDisablingNextWinnersPage = () => {
+  const winnersCount = getStore().winnersCount;
+  const remainingCars = winnersCount - getStore().winnersPage * 10;
+
+  if (remainingCars > 0) {
+    return '';
+  }
+
+  return 'disabled';
+};
+
+export const checkDisablingPrevWinnersPage = () => {
+  if (getStore().winnersPage !== 1) {
+    return '';
+  }
+
+  return 'disabled';
+};
+
 export function setDefaultState() {
   states.push('ready');
 
