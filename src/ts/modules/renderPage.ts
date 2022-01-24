@@ -8,7 +8,7 @@ export const renderPage = async () => {
   container.classList.add('container');
 
   const garageBlock = await createGaragePage(getStore().carsPage);
-  const winnersBlock = await createWinnersPage(getStore().winnersPage);
+  const winnersBlock = await createWinnersPage(getStore().winnersPage, getStore().sortBy, getStore().sortOrder);
 
   container.append(createHeader());
   container.append(garageBlock);

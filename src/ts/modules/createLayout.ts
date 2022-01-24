@@ -12,7 +12,7 @@ import {
   setDefaultAnimation
 } from './utils';
 
-function createSettings() {
+const createSettings = () => {
   const settings = document.createElement('div');
   settings.classList.add('settings');
 
@@ -94,19 +94,19 @@ export const createGaragePage = async (page: number) => {
   return garage;
 };
 
-const getCarByWinnerId = async (id: number) => {
-  const winnerCar = await getCar(id);
+const getCarByWinnerId = (id: number) => {
+  const winnerCar = getCar(id);
 
   return winnerCar;
 };
 
-export const createWinnersPage = async (page: number) => {
+export const createWinnersPage = async (page: number, sort: string, order: string) => {
   const winnersIds: number[] = [];
   const winners = document.createElement('section');
   winners.classList.add('winners');
   winners.classList.add('hidden');
 
-  const winnersData = await getWinners(page);
+  const winnersData = await getWinners(page, 7, sort, order);
 
   winners.innerHTML = `
     <h2 class="winners-header">Winners (${winnersData.count})</h2>
@@ -114,7 +114,7 @@ export const createWinnersPage = async (page: number) => {
 
     <table class="winners-table">
       <tr class="winners-table-row winners-table-row-headers">
-        <th>Id</th>
+        <th class="winners-table-row-headers-wins-id">Id</th>
         <th>Car</th>
         <th>Name</th>
         <th class="winners-table-row-headers-wins">Wins</th>
@@ -127,6 +127,14 @@ export const createWinnersPage = async (page: number) => {
     <button class="button winners-nav-next" ${checkDisablingNextWinnersPage()}>Next</button>
     </nav>
   `;
+
+  const currentSortContainer = winners.querySelector(`.winners-table-row-headers-${getStore().sortBy}`);
+
+  if (getStore().sortOrder === 'ASC') {
+    currentSortContainer.textContent = currentSortContainer.textContent + ' ↑';
+  } else {
+    currentSortContainer.textContent = currentSortContainer.textContent + ' ↓';
+  }
 
   const winnersContainer = winners.querySelector('.winners-table');
 

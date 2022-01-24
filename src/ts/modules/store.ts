@@ -2,7 +2,9 @@ let store = {
   carsPage: 1,
   winnersPage: 1,
   carsCount: 4,
-  winnersCount: 1
+  winnersCount: 1,
+  sortBy: 'id',
+  sortOrder: 'DESC'
 };
 
 if (sessionStorage.getItem('dumbus-async-race-store') !== null) {
@@ -32,5 +34,19 @@ export function updateStoredCarsCount(count: number) {
 
 export function updateStoredWinnersCount(count: number) {
   store.winnersCount = count;
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+}
+
+export function toggleSortOrder() {
+  if (store.sortOrder === 'ASC') {
+    store.sortOrder = 'DESC';
+  } else {
+    store.sortOrder = 'ASC';
+  }
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+}
+
+export function updateStoredSortBy(sortBy: string) {
+  store.sortBy = sortBy;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }

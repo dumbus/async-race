@@ -1,7 +1,7 @@
 import { createHeader, createGaragePage, createWinnersPage } from './createLayout';
 import { getRandomName, getRandomColor, getDistanceBetweenElements, animateCar } from './utils';
 import { addMenuListeners, addGarageUpdateListeners, addRaceListeners } from './listeners';
-import { getStore, updateStoredCarsPage, updateStoredWinnersPage } from './store';
+import { getStore, updateStoredCarsPage, updateStoredWinnersPage, toggleSortOrder, updateStoredSortBy } from './store';
 import {
   createCar,
   deleteCar,
@@ -17,7 +17,7 @@ const updatePage = async () => {
   const container = document.querySelector('.container');
 
   const garageBlock = await createGaragePage(getStore().carsPage);
-  const winnersBlock = await createWinnersPage(getStore().winnersPage);
+  const winnersBlock = await createWinnersPage(getStore().winnersPage, getStore().sortBy, getStore().sortOrder);
 
   container.innerHTML = '';
   container.append(createHeader());
@@ -34,7 +34,7 @@ export const updateWinnersPage = async () => {
   const winners = document.querySelector('.winners');
   winners.remove();
 
-  const winnersBlock = await createWinnersPage(getStore().winnersPage);
+  const winnersBlock = await createWinnersPage(getStore().winnersPage, getStore().sortBy, getStore().sortOrder);
   container.append(winnersBlock);
 
   addMenuListeners();
@@ -190,5 +190,29 @@ export const paginateWinnersPrev = async () => {
   await updateWinnersPage();
 
   const winners = <HTMLElement>document.querySelector('.winners');
+  winners.classList.remove('hidden');
+};
+
+export const sortByWins = async () => {
+  updateStoredSortBy('wins');
+
+  await updateWinnersPage();
+  const winners = document.querySelector('.winners');
+  winners.classList.remove('hidden');
+};
+
+export const sortByTime = async () => {
+  updateStoredSortBy('time');
+
+  await updateWinnersPage();
+  const winners = document.querySelector('.winners');
+  winners.classList.remove('hidden');
+};
+
+export const toggleSortOrderByButton = async () => {
+  toggleSortOrder();
+
+  await updateWinnersPage();
+  const winners = document.querySelector('.winners');
   winners.classList.remove('hidden');
 };

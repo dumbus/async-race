@@ -9,7 +9,10 @@ import {
   paginateWinnersPrev,
   paginateWinnersNext,
   startDriving,
-  stopDriving
+  stopDriving,
+  sortByWins,
+  sortByTime,
+  toggleSortOrderByButton
 } from './updatePages';
 import { startRace, resetRace } from './raceAnimation';
 
@@ -27,6 +30,9 @@ export const addMenuListeners = () => {
   const winnersNavPrev = document.querySelector('.winners-nav-prev');
   const winnersNavNext = document.querySelector('.winners-nav-next');
 
+  const winsButton = document.querySelector('.winners-table-row-headers-wins');
+  const timeButton = document.querySelector('.winners-table-row-headers-time');
+
   garageBtn.addEventListener('click', () => {
     garageBlock.classList.remove('hidden');
     winnersBlock.classList.add('hidden');
@@ -42,6 +48,16 @@ export const addMenuListeners = () => {
 
   winnersNavPrev.addEventListener('click', paginateWinnersPrev);
   winnersNavNext.addEventListener('click', paginateWinnersNext);
+
+  winsButton.addEventListener('click', () => {
+    toggleSortOrderByButton();
+    sortByWins();
+  });
+
+  timeButton.addEventListener('click', () => {
+    toggleSortOrderByButton();
+    sortByTime();
+  });
 };
 
 export const addGarageUpdateListeners = () => {
