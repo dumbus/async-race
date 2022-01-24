@@ -144,6 +144,18 @@ body {
   .additional-height {
     height: 50px;
   }
+  .result {
+    display: none;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 48px;
+    text-align: center;
+    text-shadow: #FF0000 1px 0 48px;
+  }
 }
 
 .winners {

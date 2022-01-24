@@ -38,6 +38,7 @@ export const createCarBlock = (carParams: ICar, dataNum: number) => {
   const carHeader = document.createElement('div');
   car.classList.add('car');
   car.setAttribute('id', `car-${carParams.id}`);
+  car.setAttribute('data-num', String(dataNum));
   carHeader.classList.add('car-header');
 
   carHeader.innerHTML = `

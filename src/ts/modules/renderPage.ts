@@ -1,5 +1,5 @@
 import { createHeader, createGaragePage, createWinnersPage } from './createLayout';
-import { addMenuListeners, addGarageUpdateListeners } from './listeners';
+import { addMenuListeners, addGarageUpdateListeners, addRaceListeners } from './listeners';
 import { getStore } from './store';
 
 export const renderPage = async () => {
@@ -18,6 +18,7 @@ export const renderPage = async () => {
 
   addMenuListeners();
   addGarageUpdateListeners();
+  addRaceListeners();
 };
 
 export default renderPage;

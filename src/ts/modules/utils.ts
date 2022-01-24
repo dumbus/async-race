@@ -98,3 +98,21 @@ export const animateCar = (car: HTMLElement, distance: number, duration: number,
 
   return animationId;
 };
+
+export const renderResult = (name: string, time: number) => {
+  const garage = document.querySelector('.garage');
+  const result = document.createElement('div');
+  result.classList.add('result');
+  result.style.display = 'block';
+
+  result.innerHTML = `
+    <h1>${name} went first (${time})!</h1>
+  `;
+
+  garage.append(result);
+};
+
+export const clearResult = () => {
+  const result = document.querySelector('.result');
+  result.remove();
+};

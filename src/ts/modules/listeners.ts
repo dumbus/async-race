@@ -9,10 +9,11 @@ import {
   startDriving,
   stopDriving
 } from './updateGarage';
+import { startRace, resetRace } from './raceAnimation';
 
 let selectedCarIndex: number = undefined;
 
-export function addMenuListeners() {
+export const addMenuListeners = () => {
   const garageBtn = document.querySelector('.header-nav-garage');
   const winnersBtn = document.querySelector('.header-nav-winners');
 
@@ -28,9 +29,9 @@ export function addMenuListeners() {
     winnersBlock.classList.remove('hidden');
     garageBlock.classList.add('hidden');
   });
-}
+};
 
-export function addGarageUpdateListeners() {
+export const addGarageUpdateListeners = () => {
   const START_INDEX_OF_DELETE_ID = 18;
   const START_INDEX_OF_UPDATE_ID = 18;
   const START_INDEX_OF_START_ID = 17;
@@ -93,4 +94,19 @@ export function addGarageUpdateListeners() {
       stopDriving(buttonId, currentCarIndex);
     });
   });
-}
+};
+
+export const addRaceListeners = () => {
+  const raceButton = <HTMLButtonElement>document.querySelector('.settings-controls-race');
+  const resetButton = <HTMLButtonElement>document.querySelector('.settings-controls-reset');
+
+  raceButton.addEventListener('click', () => {
+    raceButton.disabled = true;
+    startRace();
+  });
+
+  resetButton.addEventListener('click', () => {
+    resetButton.disabled = true;
+    resetRace();
+  });
+};

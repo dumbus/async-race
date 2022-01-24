@@ -1,6 +1,6 @@
 import { createHeader, createGaragePage, createWinnersPage } from './createLayout';
 import { getRandomName, getRandomColor, getDistanceBetweenElements, animateCar } from './utils';
-import { addMenuListeners, addGarageUpdateListeners } from './listeners';
+import { addMenuListeners, addGarageUpdateListeners, addRaceListeners } from './listeners';
 import { getStore, updateStoredCarsPage } from './store';
 import {
   createCar,
@@ -13,7 +13,7 @@ import {
   driveEngine
 } from './api';
 
-async function updatePage() {
+const updatePage = async () => {
   const container = document.querySelector('.container');
 
   const garageBlock = await createGaragePage(getStore().carsPage);
@@ -26,7 +26,8 @@ async function updatePage() {
 
   addMenuListeners();
   addGarageUpdateListeners();
-}
+  addRaceListeners();
+};
 
 export const createCarByButton = async () => {
   const nameInput = <HTMLInputElement>document.querySelector('#create-name');
@@ -131,6 +132,8 @@ export const startDriving = async (id: number, currentCarIndex: number) => {
     sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
     window.cancelAnimationFrame(animationId);
   }
+
+  return { result, id, time, car };
 };
 
 export const stopDriving = async (id: number, currentCarIndex: number) => {
@@ -159,4 +162,6 @@ export const stopDriving = async (id: number, currentCarIndex: number) => {
   carImage.style.transform = 'translateX(0)';
   states[currentCarIndex] = 'ready';
   sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
+
+  return { car: car };
 };
