@@ -12,7 +12,7 @@ import {
   setDefaultAnimation
 } from './utils';
 
-function createSettings() {
+const createSettings = () => {
   const settings = document.createElement('div');
   settings.classList.add('settings');
 
@@ -37,9 +37,9 @@ function createSettings() {
   `;
 
   return settings;
-}
+};
 
-export function createHeader() {
+export const createHeader = () => {
   const header = document.createElement('header');
   header.classList.add('header');
   header.innerHTML = `
@@ -50,7 +50,7 @@ export function createHeader() {
   `;
 
   return header;
-}
+};
 
 export const createGaragePage = async (page: number) => {
   const garage = document.createElement('section');

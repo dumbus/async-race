@@ -13,40 +13,40 @@ if (sessionStorage.getItem('dumbus-async-race-store') !== null) {
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }
 
-export function getStore() {
+export const getStore = () => {
   return store;
-}
+};
 
-export function updateStoredCarsPage(page: number) {
+export const updateStoredCarsPage = (page: number) => {
   store.carsPage = page;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
-}
+};
 
-export function updateStoredWinnersPage(page: number) {
+export const updateStoredWinnersPage = (page: number) => {
   store.winnersPage = page;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
-}
+};
 
-export function updateStoredCarsCount(count: number) {
+export const updateStoredCarsCount = (count: number) => {
   store.carsCount = count;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
-}
+};
 
-export function updateStoredWinnersCount(count: number) {
+export const updateStoredWinnersCount = (count: number) => {
   store.winnersCount = count;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
-}
+};
 
-export function toggleSortOrder() {
+export const toggleSortOrder = () => {
   if (store.sortOrder === 'ASC') {
     store.sortOrder = 'DESC';
   } else {
     store.sortOrder = 'ASC';
   }
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
-}
+};
 
-export function updateStoredSortBy(sortBy: string) {
+export const updateStoredSortBy = (sortBy: string) => {
   store.sortBy = sortBy;
   sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
-}
+};

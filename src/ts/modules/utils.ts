@@ -61,21 +61,21 @@ export const checkDisablingPrevWinnersPage = () => {
   return 'disabled';
 };
 
-export function setDefaultState() {
+export const setDefaultState = () => {
   states.push('ready');
 
   sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
-}
+};
 
-export function setDefaultAnimation() {
+export const setDefaultAnimation = () => {
   animations.push(null);
 
   sessionStorage.setItem('dumbus-async-race-animations', JSON.stringify(animations));
-}
+};
 
-function getElementPosition(element: Element) {
+const getElementPosition = (element: Element) => {
   return element.getBoundingClientRect().left;
-}
+};
 
 export const getDistanceBetweenElements = (car: Element) => {
   const CAR_IMAGE_WIDTH = 60;
