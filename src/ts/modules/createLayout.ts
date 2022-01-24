@@ -99,6 +99,7 @@ const getCarByWinnerId = async (id: number) => {
 };
 
 export const createWinnersPage = async (page: number) => {
+  const winnersIds: number[] = [];
   const winners = document.createElement('section');
   winners.classList.add('winners');
   winners.classList.add('hidden');
@@ -111,7 +112,7 @@ export const createWinnersPage = async (page: number) => {
 
     <table class="winners-table">
       <tr class="winners-table-row winners-table-row-headers">
-        <th>Number</th>
+        <th>Id</th>
         <th>Car</th>
         <th>Name</th>
         <th class="winners-table-row-headers-wins">Wins</th>
@@ -131,6 +132,8 @@ export const createWinnersPage = async (page: number) => {
     data.map((winner) => {
       getCarByWinnerId(winner.id).then((car) => {
         winnersContainer.append(createWinnerBlock(winner, car));
+        winnersIds.push(winner.id);
+        sessionStorage.setItem('dumbus-async-race-winners', JSON.stringify(winnersIds));
       });
     });
   });

@@ -4,10 +4,10 @@ let store = {
   carsCount: 4
 };
 
-if (localStorage.getItem('dumbus-async-race-store') !== null) {
-  store = JSON.parse(localStorage.getItem('dumbus-async-race-store'));
+if (sessionStorage.getItem('dumbus-async-race-store') !== null) {
+  store = JSON.parse(sessionStorage.getItem('dumbus-async-race-store'));
 } else {
-  localStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }
 
 export function getStore() {
@@ -16,15 +16,15 @@ export function getStore() {
 
 export function updateStoredCarsPage(page: number) {
   store.carsPage = page;
-  localStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }
 
 export function updateStoredWinnersPage(page: number) {
   store.winnersPage = page;
-  localStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }
 
 export function updateStoredCarsCount(count: number) {
   store.carsCount = count;
-  localStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
+  sessionStorage.setItem('dumbus-async-race-store', JSON.stringify(store));
 }

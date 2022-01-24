@@ -8,7 +8,7 @@ import {
   paginateGarageNext,
   startDriving,
   stopDriving
-} from './updateGarage';
+} from './updatePages';
 import { startRace, resetRace } from './raceAnimation';
 
 let selectedCarIndex: number = undefined;
@@ -36,11 +36,11 @@ export const addGarageUpdateListeners = () => {
   const START_INDEX_OF_UPDATE_ID = 18;
   const START_INDEX_OF_START_ID = 17;
   const START_INDEX_OF_STOP_ID = 16;
-  const createCarButton = document.querySelector('#create-submit');
+  const createCarButton = <HTMLButtonElement>document.querySelector('#create-submit');
   const updateCarButton = document.querySelector('#update-submit');
   const deleteCarButtons = document.querySelectorAll('.car-header-remove');
   const selectCarButtons = document.querySelectorAll('.car-header-select');
-  const generateCarsButton = document.querySelector('.settings-controls-generate');
+  const generateCarsButton = <HTMLButtonElement>document.querySelector('.settings-controls-generate');
   const garageNavPrev = document.querySelector('.garage-nav-prev');
   const garageNavNext = document.querySelector('.garage-nav-next');
   const carStartButtons = document.querySelectorAll('.car-header-start');
