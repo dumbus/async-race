@@ -32,7 +32,6 @@ const updatePage = async () => {
 export const updateWinnersPage = async () => {
   const container = document.querySelector('.container');
   const winners = document.querySelector('.winners');
-  console.log(winners);
   winners.remove();
 
   const winnersBlock = await createWinnersPage(getStore().winnersPage, getStore().sortBy, getStore().sortOrder);
