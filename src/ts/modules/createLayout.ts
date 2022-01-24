@@ -12,7 +12,7 @@ import {
   setDefaultAnimation
 } from './utils';
 
-const createSettings = () => {
+function createSettings() {
   const settings = document.createElement('div');
   settings.classList.add('settings');
 
@@ -114,7 +114,7 @@ export const createWinnersPage = async (page: number, sort: string, order: strin
 
     <table class="winners-table">
       <tr class="winners-table-row winners-table-row-headers">
-        <th class="winners-table-row-headers-wins-id">Id</th>
+        <th class="winners-table-row-headers-id">Id</th>
         <th>Car</th>
         <th>Name</th>
         <th class="winners-table-row-headers-wins">Wins</th>

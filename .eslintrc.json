@@ -11,7 +11,7 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
-    "project": "./dumbus-JSFE2021Q3/tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "env": {
     "es2021": true,
@@ -20,11 +20,10 @@
   },
   "rules": {
     "no-debugger": "off",
-    "no-console": "off",
     "@typescript-eslint/no-explicit-any": 2,
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/comma-dangle": "off",
-    "@typescript-eslint/no-loop-func": "off",
+    // "@typescript-eslint/no-loop-func": "off",
     "prettier/prettier": ["error", {
       "trailingComma": "none",
       "semi": true,
