@@ -1,9 +1,17 @@
-import { ICar } from './interfaces';
-import { createCarBlock } from './createCarBlock';
 import { createHeader, createGaragePage, createWinnersPage } from './createLayout';
-import { createCar, deleteCar, deleteWinner, updateCar } from './api';
+import { getRandomName, getRandomColor, getDistanceBetweenElements, animateCar } from './utils';
 import { addMenuListeners, addGarageUpdateListeners } from './listeners';
-import { getStore } from './store';
+import { getStore, updateStoredCarsPage } from './store';
+import {
+  createCar,
+  deleteCar,
+  deleteWinner,
+  updateCar,
+  createRandomCars,
+  startEngine,
+  stopEngine,
+  driveEngine
+} from './api';
 
 async function updatePage() {
   const container = document.querySelector('.container');
@@ -21,9 +29,6 @@ async function updatePage() {
 }
 
 export const createCarByButton = async () => {
-  const carsContainer = document.querySelector('.garage-cars');
-  const carsItems = carsContainer.querySelectorAll('.car');
-  const amountOfCars = document.querySelector('.garage-header');
   const nameInput = <HTMLInputElement>document.querySelector('#create-name');
   const colorInput = <HTMLInputElement>document.querySelector('#create-color');
 
@@ -33,15 +38,9 @@ export const createCarByButton = async () => {
       color: colorInput.value
     };
 
-    const carData = await createCar(body);
+    await createCar(body);
 
-    amountOfCars.innerHTML = `Garage (${+amountOfCars.innerHTML + 1})`;
-
-    if (carsItems.length < 7) {
-      carData.then((car: ICar) => {
-        carsContainer.append(createCarBlock(car));
-      });
-    }
+    updatePage();
   }
 };
 
@@ -72,13 +71,92 @@ export const updateCarByButton = async (id: number) => {
       color: colorInput.value
     };
 
-    const carData = await updateCar(id, body);
-    console.log(carData);
-
+    await updateCar(id, body);
     await updatePage();
   }
 };
 
-// export const createRandomCars = () => {
+export const createRandomCarsByButton = async () => {
+  const bodiesArr = [];
 
-// }
+  for (let i = 0; i < 100; i += 1) {
+    const body = {
+      name: getRandomName(),
+      color: getRandomColor()
+    };
+
+    bodiesArr.push(body);
+  }
+
+  await createRandomCars(bodiesArr);
+
+  await updatePage();
+};
+
+export const paginateGarageNext = async () => {
+  updateStoredCarsPage(getStore().carsPage + 1);
+  await updatePage();
+};
+
+export const paginateGaragePrev = async () => {
+  updateStoredCarsPage(getStore().carsPage - 1);
+  await updatePage();
+};
+
+export const startDriving = async (id: number, currentCarIndex: number) => {
+  const startButton = <HTMLButtonElement>document.querySelector(`#car-header-start-${id}`);
+  startButton.disabled = true;
+
+  const stopButton = <HTMLButtonElement>document.querySelector(`#car-header-stop-${id}`);
+  stopButton.disabled = false;
+
+  const carData = await startEngine(id);
+  const velocity = carData.velocity;
+  const distance = carData.distance;
+  const time = Math.round(distance / velocity);
+
+  const car = document.querySelector(`#car-${id}`);
+  const carImage = car.querySelector('.car-road-icon-div');
+  const distanceInPx = getDistanceBetweenElements(car);
+
+  const animationId = animateCar(<HTMLElement>carImage, distanceInPx, time, currentCarIndex);
+  const states = JSON.parse(sessionStorage.getItem('dumbus-async-race-states'));
+  const animations = JSON.parse(sessionStorage.getItem('dumbus-async-race-animations'));
+  animations[currentCarIndex] = animationId;
+  sessionStorage.setItem('dumbus-async-race-animations', JSON.stringify(animations));
+
+  const result = await driveEngine(id);
+  if (!result.success) {
+    states[currentCarIndex] = 'stopped';
+    sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
+    window.cancelAnimationFrame(animationId);
+  }
+};
+
+export const stopDriving = async (id: number, currentCarIndex: number) => {
+  const stopButton = <HTMLButtonElement>document.querySelector(`#car-header-stop-${id}`);
+  stopButton.disabled = true;
+
+  await stopEngine(id);
+
+  const startButton = <HTMLButtonElement>document.querySelector(`#car-header-start-${id}`);
+  startButton.disabled = false;
+
+  const car = document.querySelector(`#car-${id}`);
+  const carImage = <HTMLElement>car.querySelector('.car-road-icon-div');
+
+  const states = JSON.parse(sessionStorage.getItem('dumbus-async-race-states'));
+  states[currentCarIndex] = 'stopped';
+  sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
+
+  const animations = JSON.parse(sessionStorage.getItem('dumbus-async-race-animations'));
+  const currentCarAnimationId = animations[currentCarIndex];
+  window.cancelAnimationFrame(currentCarAnimationId);
+
+  animations[currentCarIndex] = null;
+  sessionStorage.setItem('dumbus-async-race-animations', JSON.stringify(animations));
+
+  carImage.style.transform = 'translateX(0)';
+  states[currentCarIndex] = 'ready';
+  sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
+};

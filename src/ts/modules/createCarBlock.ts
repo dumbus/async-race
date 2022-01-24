@@ -3,6 +3,8 @@ import { ICar } from './interfaces';
 export const createCarImage = (color: string) => {
   const carRoadIcon = document.createElement('div');
   carRoadIcon.classList.add('car-road-icon');
+  const carImageDiv = document.createElement('div');
+  carImageDiv.classList.add('car-road-icon-div');
 
   carRoadIcon.innerHTML = `
     <?xml version="1.0" encoding="iso-8859-1"?>
@@ -26,11 +28,12 @@ export const createCarImage = (color: string) => {
       </g>
     </svg>
   `;
+  carImageDiv.append(carRoadIcon);
 
-  return carRoadIcon;
+  return carImageDiv;
 };
 
-export const createCarBlock = (carParams: ICar) => {
+export const createCarBlock = (carParams: ICar, dataNum: number) => {
   const car = document.createElement('div');
   const carHeader = document.createElement('div');
   car.classList.add('car');
@@ -41,8 +44,8 @@ export const createCarBlock = (carParams: ICar) => {
     <button class="button button-blue car-header-select" id="car-header-select-${carParams.id}">Select</button>
     <button class="button button-blue car-header-remove" id="car-header-remove-${carParams.id}">Remove</button>
     <span class="car-header-name">${carParams.name}</span>
-    <button class="car-header-button car-header-start" id="car-header-start-${carParams.id}">A</button>
-    <button class="car-header-button car-header-stop" id="car-header-stop-${carParams.id}" disabled>B</button>
+    <button class="car-header-button car-header-start" id="car-header-start-${carParams.id}" data-num=${dataNum}>A</button>
+    <button class="car-header-button car-header-stop" id="car-header-stop-${carParams.id}" data-num=${dataNum} disabled>B</button>
   `;
 
   const carRoad = document.createElement('div');

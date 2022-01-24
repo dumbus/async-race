@@ -1,13 +1,14 @@
 import { createHeader, createGaragePage, createWinnersPage } from './createLayout';
 import { addMenuListeners, addGarageUpdateListeners } from './listeners';
+import { getStore } from './store';
 
 export const renderPage = async () => {
   const body = document.querySelector('body');
   const container = document.createElement('div');
   container.classList.add('container');
 
-  const garageBlock = await createGaragePage(1);
-  const winnersBlock = await createWinnersPage(1);
+  const garageBlock = await createGaragePage(getStore().carsPage);
+  const winnersBlock = await createWinnersPage(getStore().carsPage);
 
   container.innerHTML = '';
   container.append(createHeader());

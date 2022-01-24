@@ -1,4 +1,14 @@
-import { createCarByButton, deleteCarByButton, allowUpdatingCarByButton, updateCarByButton } from './updateGarage';
+import {
+  createCarByButton,
+  deleteCarByButton,
+  allowUpdatingCarByButton,
+  updateCarByButton,
+  createRandomCarsByButton,
+  paginateGaragePrev,
+  paginateGarageNext,
+  startDriving,
+  stopDriving
+} from './updateGarage';
 
 let selectedCarIndex: number = undefined;
 
@@ -23,10 +33,17 @@ export function addMenuListeners() {
 export function addGarageUpdateListeners() {
   const START_INDEX_OF_DELETE_ID = 18;
   const START_INDEX_OF_UPDATE_ID = 18;
+  const START_INDEX_OF_START_ID = 17;
+  const START_INDEX_OF_STOP_ID = 16;
   const createCarButton = document.querySelector('#create-submit');
   const updateCarButton = document.querySelector('#update-submit');
   const deleteCarButtons = document.querySelectorAll('.car-header-remove');
   const selectCarButtons = document.querySelectorAll('.car-header-select');
+  const generateCarsButton = document.querySelector('.settings-controls-generate');
+  const garageNavPrev = document.querySelector('.garage-nav-prev');
+  const garageNavNext = document.querySelector('.garage-nav-next');
+  const carStartButtons = document.querySelectorAll('.car-header-start');
+  const carStopButtons = document.querySelectorAll('.car-header-stop');
 
   createCarButton.addEventListener('click', createCarByButton);
 
@@ -48,5 +65,32 @@ export function addGarageUpdateListeners() {
 
   updateCarButton.addEventListener('click', () => {
     updateCarByButton(selectedCarIndex);
+  });
+
+  generateCarsButton.addEventListener('click', createRandomCarsByButton);
+
+  garageNavPrev.addEventListener('click', paginateGaragePrev);
+  garageNavNext.addEventListener('click', paginateGarageNext);
+
+  carStartButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const buttonId = +button.getAttribute('id').slice(START_INDEX_OF_START_ID);
+      const currentCarIndex = +button.getAttribute('data-num');
+
+      const states = JSON.parse(sessionStorage.getItem('dumbus-async-race-states'));
+      states[currentCarIndex] = 'driving';
+      sessionStorage.setItem('dumbus-async-race-states', JSON.stringify(states));
+
+      startDriving(buttonId, currentCarIndex);
+    });
+  });
+
+  carStopButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const buttonId = +button.getAttribute('id').slice(START_INDEX_OF_STOP_ID);
+      const currentCarIndex = +button.getAttribute('data-num');
+
+      stopDriving(buttonId, currentCarIndex);
+    });
   });
 }

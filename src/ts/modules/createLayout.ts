@@ -2,6 +2,13 @@ import { ICar, IWinner } from './interfaces';
 import { createCarBlock } from './createCarBlock';
 import { createWinnerBlock } from './createWinnerBlock';
 import { getCars, getWinners, getCar } from './api';
+import { updateStoredCarsCount, getStore } from './store';
+import {
+  checkDisablingPrevGaragePage,
+  checkDisablingNextGaragePage,
+  setDefaultState,
+  setDefaultAnimation
+} from './utils';
 
 function createSettings() {
   const settings = document.createElement('div');
@@ -22,7 +29,7 @@ function createSettings() {
 
   <div class="settings-controls">
     <button class="button settings-controls-race">Race</button>
-    <button class="button settings-controls-reset">Reset</button>
+    <button class="button settings-controls-reset" disabled>Reset</button>
     <button class="button button-blue settings-controls-generate">Generate cars</button>
   </div>
   `;
@@ -50,11 +57,12 @@ export const createGaragePage = async (page: number) => {
   garageContent.classList.add('garage-content');
 
   const carsData = await getCars(page);
+  updateStoredCarsCount(+carsData.count);
 
   garage.append(createSettings());
   garageContent.innerHTML = `
     <h2 class="garage-header">Garage (${carsData.count})</h2>
-    <h3 class="garage-subheader">Page #1</h3>
+    <h3 class="garage-subheader">Page #${getStore().carsPage}</h3>
     <div class="garage-cars">
       
     </div>
@@ -62,16 +70,20 @@ export const createGaragePage = async (page: number) => {
     <div class="additional-height"></div>
 
     <nav class="garage-nav">
-      <button class="button garage-nav-prev" disabled>Prev</button>
-      <button class="button garage-nav-next" disabled>Next</button>
+      <button class="button garage-nav-prev" ${checkDisablingPrevGaragePage()}>Prev</button>
+      <button class="button garage-nav-next" ${checkDisablingNextGaragePage()}>Next</button>
     </nav>
   `;
 
   const carsContainer = garageContent.querySelector('.garage-cars');
+  let dataNumber = 0;
 
   carsData.items.then((data: ICar[]) => {
-    data.map((car) => {
-      carsContainer.append(createCarBlock(car));
+    data.forEach((car) => {
+      carsContainer.append(createCarBlock(car, dataNumber));
+      setDefaultState();
+      setDefaultAnimation();
+      dataNumber += 1;
     });
   });
 
