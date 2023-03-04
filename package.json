@@ -1,5 +1,5 @@
 {
-  "name": "NewsJS",
+  "name": "Async-race",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.base.config.js",
@@ -14,7 +14,7 @@
     "url": ""
   },
   "keywords": [],
-  "author": "Aleh Serhiyenia",
+  "author": "dumbus",
   "license": "ISC",
   "homepage": "",
   "devDependencies": {
