@@ -1,6 +1,7 @@
 ## Async Race
 
-The main goal of this task was to develop an SPA application to imitate an asynchronous car race game. We used an web-server to get info about cars and had to handle different errors.
+The main goal of this task was to develop an SPA application to imitate an asynchronous car race game.  
+We used an web-server to get info about cars and had to handle different errors.  
 
 ### Before starting an application you should start web-server! (instructions are below)
 
@@ -12,7 +13,7 @@ git clone https://github.com/dumbus/async-race.git
 ```
 2. Change active directory:
 ```
-cd async-race/server
+cd async-race
 ```
 3. Install dependencies:
 ```
@@ -20,7 +21,7 @@ npm install
 ```
 4. Start web-server:
 ```
-npm start
+npm start:server
 ```
 
 > Use node 14.x or higher
@@ -29,15 +30,11 @@ npm start
 
 1. Open new terminal
 
-2. Change active directory to `async-race`
+2. Make sure that your active directory is `async-race`
 
-3. Install dependencies:
+3. Start application:
 ```
-npm install
-```
-4. Start application:
-```
-npm run start
+npm run start:app
 ```
 
 ### The main technologies of this project:

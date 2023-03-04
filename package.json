@@ -5,8 +5,8 @@
   "main": "webpack.base.config.js",
   "scripts": {
     "test": "webpack",
-    "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
-    "build": "webpack --config ./webpack.config.js --env mode=prod",
+    "start:server": "node ./server/index.js",
+    "start:app": "webpack serve --open --config ./webpack.config.js --env mode=dev",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
@@ -43,6 +43,7 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "json-server": "^0.17.2",
     "nouislider": "^15.5.0"
   }
 }
