@@ -1,0 +1,194 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #000000;
+}
+
+.container {
+  width: calc(100vw - 40px);
+  min-height: calc(100vh - 30px);
+  padding: 10px 10px 20px 10px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  height: 25px;
+  margin-bottom: 10px;
+  * {
+    height: 100%;
+  }
+  .input {
+    border: none;
+    border-radius: 3px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.button {
+  width: 100px;
+  height: 25px;
+  padding: 0 2px;
+  background-color: rgba(119, 247, 119, 0.8);
+  border: none;
+  border-bottom: 3px solid rgba(119, 247, 119, 1.0);
+  border-radius: 3px;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  &:not(:disabled):hover {
+    background-color: rgba(48, 250, 48, 0.8);
+    border-bottom: 3px solid rgba(48, 250, 48, 1.0);
+  }
+  &-blue {
+    background-color: rgba(190, 229, 251, 0.8);
+    border-bottom: 3px solid rgba(190, 229, 251, 1.0);
+    &:not(:disabled):hover {
+      background-color: rgba(34, 154, 252, 0.8);
+      border-bottom: 3px solid rgba(34, 154, 252, 1.0);
+    }
+  }
+  &:disabled {
+    background-color: rgba(192, 189, 189, 0.8);
+    border-bottom: 3px solid rgba(105, 105, 105, 1.0);
+  }
+}
+
+.settings {
+  margin: 20px 0 0 0;
+  &-controls-generate {
+    width: 120px;
+  }
+}
+
+.garage {
+  margin: 20px 0 0 0;
+  color: #ffffff;
+  &-header {
+    margin-top: 20px;
+    font-size: 36px;
+  }
+  &-subheader {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .car {
+    margin-top: 20px;
+    &-header {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      &-name {
+        color: #FFA500;
+        font-size: 20px;
+      }
+      &-button {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        font-size: 20px;
+        background-color: transparent;
+        &:disabled {
+          border: 1px solid rgb(105, 105, 105);
+          color: rgb(105, 105, 105);
+        }
+      }
+      &-start {
+        border: 1px solid rgb(48, 250, 48);
+        color:rgb(48, 250, 48);
+        transition: all 0.2s;
+        &:not(:disabled):hover {
+          box-shadow: 0 0 10px rgb(48, 250, 48);
+        }
+      }
+      &-stop {
+        border: 1px solid rgb(252, 16, 16);
+        color:rgb(252, 16, 16);
+        transition: all 0.2s;
+        &:not(:disabled):hover {
+          box-shadow: 0 0 10px rgb(252, 16, 16);
+        }
+      }
+    }
+    &-road {
+      position: relative;
+      border-bottom: 4px dashed #ffffff;
+      &-icon {
+        height: 80px;
+        
+        &-div {
+          width: 80px;
+          height: 60px;
+        }
+        svg {
+          width: 100%;
+        }
+      }
+      &-flag {
+        font-size: 40px;
+        position: absolute;
+        top: 0;
+        right: 100px;
+      }
+    }
+  }
+  .additional-height {
+    height: 50px;
+  }
+  .result {
+    display: none;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 48px;
+    text-align: center;
+    text-shadow: #FF0000 1px 0 48px;
+  }
+}
+
+.winners {
+  color: #ffffff;
+  &-header {
+    margin-top: 20px;
+    font-size: 36px;
+  }
+  &-subheader {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 400;
+  }
+  &-table {
+    width: 400px;
+    margin-top: 20px;
+    &-row-headers {
+      height: 30px;
+      background-color:rgba(34, 154, 252, 0.8);
+      &-wins,
+      &-time {
+        cursor: pointer;
+      }
+    }
+    td {
+      text-align: center;
+    }
+  }
+  &-nav {
+    margin-top: 20px;
+  }
+}
+
+.hidden {
+  display: none;
+}
